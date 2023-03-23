@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h4>{{ test.title }}</h4>
+    <ol>
+        {% for question in test.questions.all %}
+            <li>
+                <div class="mb-5">
+                    <h5 class="mb-3">{{ question.title }}</h5>
+                    <div class="answers ps-5 mb-2">
+                        <div class="mb-4 d-flex align-items-center gap-2">
+                            <b>a)</b> {{ question.first_answer|safe }}
+                        </div>
+                        <div class="mb-4 d-flex align-items-center gap-2">
+                            <b>б)</b> {{ question.second_answer|safe }}
+                        </div>
+                        <div class="mb-4 d-flex align-items-center gap-2">
+                            <b>в)</b> {{ question.third_answer|safe }}
+                        </div>
+                        <div class="mb-4 d-flex align-items-center gap-2">
+                            <b>г)</b> {{ question.forth_answer|safe }}
+                        </div>
+                    </div>
+                    <div>
+                        <h5>Правильный вариант: {{ question.letter_answer }}</h5>
+                        <div>{{ question.explaining|safe }}</div>
+                    </div>
+                </div>
+            </li>
+            {% empty %}
+            <p class="text-success">В этом тесте еще нету вопросов</p>
+        {% endfor %}
+    </ol>
+
+{% endblock content %}

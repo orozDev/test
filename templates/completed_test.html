@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h4>{{ user_test.test.title }}</h4>
+    <h5 class="mb-4">Результат: {{ user_test.amount_of_correct_answers }} / {{ user_test.test.amount_of_questions }}</h5>
+    <h5>Работа над ошибками</h5>
+    <ol>
+        {% for incorrect_answer in user_test.incorrect_answers.all %}
+            <li>
+                <div class="mb-5">
+                    <h5 class="mb-3">{{ incorrect_answer.question.title }}</h5>
+                    <div class="answers ps-5 mb-2">
+                        <div class="mb-4 d-flex align-items-center gap-2 {% if incorrect_answer.answer == 1 %}border-bottom border-danger{% endif %}">
+                            <b>a)</b> {{ incorrect_answer.question.first_answer|safe }}
+                        </div>
+                        <div class="mb-4 d-flex align-items-center gap-2 {% if incorrect_answer.answer == 2 %}border-bottom border-danger{% endif %}">
+                            <b>б)</b> {{ incorrect_answer.question.second_answer|safe }}
+                        </div>
+                        <div class="mb-4 d-flex align-items-center gap-2 {% if incorrect_answer.answer == 3 %}border-bottom border-danger{% endif %}">
+                            <b>в)</b> {{ incorrect_answer.question.third_answer|safe }}
+                        </div>
+                        <div class="mb-4 d-flex align-items-center gap-2 {% if incorrect_answer.answer == 4 %}border-bottom border-danger{% endif %}">
+                            <b>г)</b> {{ incorrect_answer.question.forth_answer|safe }}
+                        </div>
+                    </div>
+                    <div>
+                        <h5>Правильный вариант: {{ incorrect_answer.letter_answer }}</h5>
+                        <div>{{ incorrect_answer.question.explaining|safe }}</div>
+                    </div>
+                </div>
+            </li>
+            {% empty %}
+            <p class="text-success">Вы выполнили все верно :)</p>
+        {% endfor %}
+    </ol>
+
+{% endblock content %}

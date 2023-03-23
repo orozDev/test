@@ -1,0 +1,47 @@
+{% extends 'auth/base.html' %}
+
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+
+  <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+    <form class="login100-form validate-form" method="POST" action="{% url 'login' %}" novalidate>
+      {% csrf_token %}
+      <span class="login100-form-title p-b-49"> Авторизация </span>
+      <div
+        class="wrap-input100 validate-input m-b-23"
+        data-validate="Имя пользователя для заполнения обезательно"
+      >
+        <span class="label-input100">{{ form.username.label }}</span>
+        {{ form.username }}
+        <span class="focus-input100" data-symbol="&#xf203;"></span>
+      </div>
+      <div
+        class="wrap-input100 validate-input m-b-20"
+        data-validate="Пароль для заполнения обезательно"
+      >
+        <span class="label-input100">{{ form.password.label }}</span>
+        {{ form.password }}
+        <span class="focus-input100" data-symbol="&#xf190;"></span>
+      </div>
+      <div class="container-login100-form-btn">
+        <div class="wrap-login100-form-btn">
+          <div class="login100-form-bgbtn"></div>
+          <button class="login100-form-btn">Войти</button>
+        </div>
+      </div>
+      {% if messages %}
+        {% for message in messages %}
+          <div class="text-center text-danger p-t-20">
+            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+      <div class="flex-col-c p-t-20">
+        <a href="{% url 'register' %}" class="txt2"> Регистрация </a>
+      </div>
+    </form>
+  </div>
+
+{% endblock content %}

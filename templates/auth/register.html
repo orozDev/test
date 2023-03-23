@@ -1,0 +1,132 @@
+{% extends 'auth/base.html' %}
+
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+
+  <div class="wrap-register100 p-l-30 p-r-30 p-t-65 p-b-54">
+    <form class="login100-form validate-form" method="POST" action="{% url 'register' %}" novalidate>
+      {% csrf_token %}
+      <span class="login100-form-title p-b-49"> Регистрация </span>
+
+      <div class="row mx-0">
+
+        <div class="m-b-23 col-12 col-md-6">
+          <div
+            class="wrap-input100 validate-input"
+            data-validate="Имя пользователя для заполнения обезательно"
+          >
+            <span class="label-input100">{{ form.username.label }}</span>
+            {{ form.username }}
+            <span class="focus-input100" data-symbol="&#xf203;"></span>
+          </div>
+          {% if form.username.errors %}
+            {% for error in form.username.errors %}
+              <div class="text-danger m-b-20 m-t-10">{{ error }}</div>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <div class="m-b-23 col-12 col-md-6">
+          <div
+            class="wrap-input100 validate-input"
+            data-validate="Имя для заполнения обезательно"
+          >
+            <span class="label-input100">{{ form.first_name.label }}</span>
+            {{ form.first_name }}
+            <span class="focus-input100" data-symbol="&#xf203;"></span>
+          </div>
+          {% if form.first_name.errors %}
+            {% for error in form.first_name.errors %}
+              <div class="text-danger m-b-20 m-t-10">{{ error }}</div>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <div class="m-b-23 col-12 col-md-6">
+          <div
+            class="wrap-input100 validate-input"
+            data-validate="Фамилия для заполнения обезательно"
+          >
+            <span class="label-input100">{{ form.last_name.label }}</span>
+            {{ form.last_name }}
+            <span class="focus-input100" data-symbol="&#xf203;"></span>
+          </div>
+          {% if form.last_name.errors %}
+            {% for error in form.last_name.errors %}
+              <div class="text-danger m-b-20 m-t-10">{{ error }}</div>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <div class="m-b-23 col-12 col-md-6">
+          <div
+            class="wrap-input100 validate-input"
+            data-validate="Почта для заполнения обезательно"
+          >
+            <span class="label-input100">{{ form.email.label }}</span>
+            {{ form.email }}
+            <span class="focus-input100" data-symbol="&#xf203;"></span>
+          </div>
+          {% if form.email.errors %}
+            {% for error in form.email.errors %}
+              <div class="text-danger m-b-20 m-t-10">{{ error }}</div>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <div class="m-b-23 col-12 col-md-6">
+          <div
+            class="wrap-input100 validate-input"
+            data-validate="Придумайте пароль"
+          >
+            <span class="label-input100">{{ form.password1.label }}</span>
+            {{ form.password1 }}
+            <span class="focus-input100" data-symbol="&#xf203;"></span>
+          </div>
+          {% if form.password1.errors %}
+            {% for error in form.password1.errors %}
+              <div class="text-danger m-b-20 m-t-10">{{ error }}</div>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <div class="m-b-23 col-12 col-md-6">
+          <div
+            class="wrap-input100 validate-input"
+            data-validate="Подтвердите пароль"
+          >
+            <span class="label-input100">{{ form.password2.label }}</span>
+            {{ form.password2 }}
+            <span class="focus-input100" data-symbol="&#xf203;"></span>
+          </div>
+          {% if form.password2.errors %}
+            {% for error in form.password2.errors %}
+              <div class="text-danger m-b-20 m-t-10">{{ error }}</div>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+
+
+      <div class="container-login100-form-btn m-t-20">
+        <div class="wrap-login100-form-btn">
+          <div class="login100-form-bgbtn"></div>
+          <button class="login100-form-btn">Зарегестрироваться</button>
+        </div>
+      </div>
+      {% if messages %}
+        {% for message in messages %}
+          <div class="text-center text-danger p-t-20">
+            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+      <div class="flex-col-c p-t-20">
+        Уже есть аккаунт? <a href="{% url 'login' %}" class="txt2"> Войти </a>
+      </div>
+    </form>
+  </div>
+
+{% endblock content %}

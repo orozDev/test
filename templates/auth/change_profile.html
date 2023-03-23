@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <style>
+        .errorlist{
+            color: red;
+        }
+    </style>
+
+    <form action="{% url 'change_profile' %}" method="POST" novalidate>
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="mb-3">
+                <label class="d-block w-100">
+                    <span>{{ field.label }}</span>
+                    {{ field }}
+                    {% for error in field.errors %}
+                        <div class="text-danger ps-2 pt-2">{{ error }}</div>
+                    {% endfor %}
+                </label>
+            </div>
+        {% endfor %}
+        <button class="btn btn-primary mt-3 w-100 d-block">Изменить</button>
+    </form>
+
+{% endblock content %}

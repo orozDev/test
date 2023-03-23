@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h2 class="text-center mb-5">
+        Поробные тесты по "{{ category.title }}"
+    </h2>
+
+    <div class="row mx-0">
+        {% for test in tests %}
+            <div class="col-lg-6 col-12 mb-3">
+                <div class="card h-100">
+                    <img src="{{ test.image.url }}" class="card-img-top" alt="">
+                    <div class="card-body">
+                    <h5 class="card-title">{{ test.title }}</h5>
+                    <a href="{% url 'start_test' id=test.id %}" class="btn btn-primary">Начать тест</a>
+                    <a href="{% url 'solution' id=test.id %}" class="btn btn-success">Решение</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="col-12 mt-3 d-flex justify-content-center">
+            {% if tests.has_previous or test.has_next %}
+                <ul class="pagination">
+                    {% if tests.has_previous %}
+                        <li class="page-item">
+                            <a href="?page={{ tests.previous_page_number }}" class="page-link"><i class="fa-solid fa-angle-left"></i></a>
+                        </li>
+                    {% endif %}
+                
+                    {% for i in tests.paginator.page_range %}
+                        {% if i <= tests.number|add:5 and i >= tests.number|add:-5 %}
+                            {% if tests.number == i %}
+                                <li class="page-item disabled"><a class="page-link" href="#">{{ i }}</a></li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{forloop.counter}}">{{forloop.counter}}</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if tests.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ tests.next_page_number }}"><i class="fa-solid fa-angle-right"></i></a>
+                        </li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock content %}

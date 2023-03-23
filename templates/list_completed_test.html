@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2 class="text-center mb-5">
+        Решенные теста
+    </h2>
+
+    <div class="row mx-0">
+        {% for user_test in user_tests %}
+            <div class="col-lg-6 col-12 mb-3">
+                <div class="card h-100">
+                    <img src="{{ user_test.test.image.url }}" class="card-img-top" alt="">
+                    <div class="card-body">
+                    <h5 class="card-title">{{ user_test.test.title }}</h5>
+                    <p class="mb-3">Результат: {{ user_test.amount_of_correct_answers }} / {{ user_test.test.amount_of_questions }}</p>
+                    <a href="{% url 'completed_test' id=user_test.id %}" class="btn btn-primary">Посмотреть результаты</a>
+                    <a href="{% url 'solution' id=user_test.test.id %}" class="btn btn-success">Решение</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="col-12 mt-3 d-flex justify-content-center">
+            {% if page_obj.has_previous or page_obj.has_next %}
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a href="?page={{ page_obj.previous_page_number }}" class="page-link"><i class="fa-solid fa-angle-left"></i></a>
+                        </li>
+                    {% endif %}
+
+                    {% for i in page_obj.paginator.page_range %}
+                        {% if i <= page_obj.number|add:5 and i >= page_obj.number|add:-5 %}
+                            {% if page_obj.number == i %}
+                                <li class="page-item disabled"><a class="page-link" href="#">{{ i }}</a></li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{forloop.counter}}">{{forloop.counter}}</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}"><i class="fa-solid fa-angle-right"></i></a>
+                        </li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock content %}
