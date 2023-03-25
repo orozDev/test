@@ -1,3 +1,4 @@
+django-jazzmin
 Django
 django-ckeditor
 django-cleanup
